@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Shop, Product, Checkout, Analytics } from './pages'
+import { Shop, Product, Checkout, Analytics, PurchaseComplete } from './pages'
 import { CartProvider } from './service/cart/cartContext'
 
 export default function App() {
@@ -11,6 +11,7 @@ export default function App() {
         <Route path="/" element={<Shop />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path='/checkout' element={<Checkout />} />
+        <Route path='/purchase-complete' element={<PurchaseComplete />} />
         <Route path='/analytics' element={<Analytics />} />
         </Routes>
       </BrowserRouter>
