@@ -7,3 +7,7 @@ export interface ProductInfoProps {
 export interface ProductMediaProps {
     productData: Product
 }
+
+export interface ProductActionsProps {
+    productData: Product
+}
