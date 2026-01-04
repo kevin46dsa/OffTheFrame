@@ -8,5 +8,5 @@ export type Product = {
     price: number
     isFeatured: boolean
     keywords: string[]
-    images: { primary: string, gallery: string[] }
+    images: { primary: string, gallery: string[], download: string }
 }

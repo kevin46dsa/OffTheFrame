@@ -11,7 +11,7 @@ export const products: Product[] = [
       price: 48,
       isFeatured: true,
       keywords: ['geometric', 'modern', 'neutral', 'structured', 'minimal'],
-      images: { primary: '/images/prints/silent-geometry.jpg', gallery: [] }
+      images: { primary: '/images/prints/silent-geometry.jpg', gallery: [], download: '/images/prints/silent-geometry.jpg' }
     },
     {
       id: 'p002',
@@ -23,7 +23,7 @@ export const products: Product[] = [
       price: 36,
       isFeatured: false,
       keywords: ['grid', 'soft-tones', 'clean', 'minimal', 'wall-art'],
-      images: { primary: '/images/prints/soft-grid-3.jpg', gallery: [] }
+      images: { primary: '/images/prints/soft-grid-3.jpg', gallery: [], download: '/images/prints/soft-grid-3.jpg' }
     },
     {
       id: 'p003',
@@ -35,7 +35,7 @@ export const products: Product[] = [
       price: 54,
       isFeatured: true,
       keywords: ['desert', 'landscape', 'warm', 'calm', 'nature'],
-      images: { primary: '/images/prints/desert-stillness.jpg', gallery: [] }
+      images: { primary: '/images/prints/desert-stillness.jpg', gallery: [], download: '/images/prints/desert-stillness.jpg' }
     },
     {
       id: 'p004',
@@ -47,7 +47,7 @@ export const products: Product[] = [
       price: 42,
       isFeatured: false,
       keywords: ['balance', 'form', 'contrast', 'abstract', 'modern'],
-      images: { primary: '/images/prints/untitled-balance.jpg', gallery: [] }
+      images: { primary: '/images/prints/untitled-balance.jpg', gallery: [], download: '/images/prints/untitled-balance.jpg' }
     },
     {
       id: 'p005',
@@ -59,7 +59,7 @@ export const products: Product[] = [
       price: 32,
       isFeatured: false,
       keywords: ['negative-space', 'minimal', 'white', 'calm', 'design'],
-      images: { primary: '/images/prints/negative-space.jpg', gallery: [] }
+      images: { primary: '/images/prints/negative-space.jpg', gallery: [], download: '/images/prints/negative-space.jpg' }
     },
     {
       id: 'p006',
@@ -71,7 +71,7 @@ export const products: Product[] = [
       price: 46,
       isFeatured: true,
       keywords: ['gradient', 'dark', 'night', 'ambient', 'modern'],
-      images: { primary: '/images/prints/night-gradient.jpg', gallery: [] }
+      images: { primary: '/images/prints/night-gradient.jpg', gallery: [], download: '/images/prints/night-gradient.jpg' }
     },
     {
       id: 'p007',
@@ -83,7 +83,7 @@ export const products: Product[] = [
       price: 58,
       isFeatured: false,
       keywords: ['valley', 'depth', 'nature', 'wide', 'scenic'],
-      images: { primary: '/images/prints/echo-valley.jpg', gallery: [] }
+      images: { primary: '/images/prints/echo-valley.jpg', gallery: [], download: '/images/prints/echo-valley.jpg' }
     },
     {
       id: 'p008',
@@ -95,7 +95,7 @@ export const products: Product[] = [
       price: 34,
       isFeatured: false,
       keywords: ['typography', 'letters', 'graphic', 'poster', 'studio'],
-      images: { primary: '/images/prints/typeface-study-1.jpg', gallery: [] }
+      images: { primary: '/images/prints/typeface-study-1.jpg', gallery: [], download: '/images/prints/typeface-study-1.jpg' }
     },
     {
       id: 'p009',
@@ -107,7 +107,7 @@ export const products: Product[] = [
       price: 49,
       isFeatured: true,
       keywords: ['signal', 'digital', 'noise', 'motion', 'abstract'],
-      images: { primary: '/images/prints/signal-drift.jpg', gallery: [] }
+      images: { primary: '/images/prints/signal-drift.jpg', gallery: [], download: '/images/prints/signal-drift.jpg' }
     },
     {
       id: 'p010',
@@ -119,7 +119,7 @@ export const products: Product[] = [
       price: 30,
       isFeatured: false,
       keywords: ['interior', 'stillness', 'quiet', 'minimal', 'space'],
-      images: { primary: '/images/prints/still-room.jpg', gallery: [] }
+      images: { primary: '/images/prints/still-room.jpg', gallery: [], download: '/images/prints/still-room.jpg' }
     },
     {
       id: 'p011',
@@ -131,7 +131,7 @@ export const products: Product[] = [
       price: 52,
       isFeatured: false,
       keywords: ['floating', 'surreal', 'objects', 'depth', 'conceptual'],
-      images: { primary: '/images/prints/floating-forms.jpg', gallery: [] }
+      images: { primary: '/images/prints/floating-forms.jpg', gallery: [], download: '/images/prints/floating-forms.jpg' }
     },
     {
       id: 'p012',
@@ -143,7 +143,7 @@ export const products: Product[] = [
       price: 56,
       isFeatured: true,
       keywords: ['urban', 'architecture', 'light', 'city', 'contrast'],
-      images: { primary: '/images/prints/concrete-light.jpg', gallery: [] }
+      images: { primary: '/images/prints/concrete-light.jpg', gallery: [], download: '/images/prints/concrete-light.jpg' }
     },
     {
       id: 'p013',
@@ -155,7 +155,7 @@ export const products: Product[] = [
       price: 44,
       isFeatured: false,
       keywords: ['axis', 'structure', 'balance', 'form', 'modern'],
-      images: { primary: '/images/prints/axis-weight.jpg', gallery: [] }
+      images: { primary: '/images/prints/axis-weight.jpg', gallery: [], download: '/images/prints/axis-weight.jpg' }
     },
     {
       id: 'p014',
@@ -167,7 +167,7 @@ export const products: Product[] = [
       price: 38,
       isFeatured: false,
       keywords: ['typography', 'motion', 'letters', 'dynamic', 'poster'],
-      images: { primary: '/images/prints/letters-motion.jpg', gallery: [] }
+      images: { primary: '/images/prints/letters-motion.jpg', gallery: [], download: '/images/prints/letters-motion.jpg' }
     },
     {
       id: 'p015',
@@ -179,7 +179,7 @@ export const products: Product[] = [
       price: 60,
       isFeatured: false,
       keywords: ['hills', 'distance', 'nature', 'soft', 'horizon'],
-      images: { primary: '/images/prints/distant-hills.jpg', gallery: [] }
+      images: { primary: '/images/prints/distant-hills.jpg', gallery: [], download: '/images/prints/distant-hills.jpg' }
     },
     {
       id: 'p016',
@@ -191,7 +191,7 @@ export const products: Product[] = [
       price: 55,
       isFeatured: true,
       keywords: ['dreamlike', 'corridor', 'surreal', 'depth', 'atmosphere'],
-      images: { primary: '/images/prints/dream-corridor.jpg', gallery: [] }
+      images: { primary: '/images/prints/dream-corridor.jpg', gallery: [], download: '/images/prints/dream-corridor.jpg' }
     },
     {
       id: 'p017',
@@ -203,7 +203,7 @@ export const products: Product[] = [
       price: 33,
       isFeatured: false,
       keywords: ['measured', 'silence', 'clean', 'minimal', 'form'],
-      images: { primary: '/images/prints/measured-silence.jpg', gallery: [] }
+      images: { primary: '/images/prints/measured-silence.jpg', gallery: [], download: '/images/prints/measured-silence.jpg' }
     },
     {
       id: 'p018',
@@ -215,7 +215,7 @@ export const products: Product[] = [
       price: 47,
       isFeatured: false,
       keywords: ['sky', 'fragmented', 'layers', 'abstract', 'motion'],
-      images: { primary: '/images/prints/fragmented-sky.jpg', gallery: [] }
+      images: { primary: '/images/prints/fragmented-sky.jpg', gallery: [], download: '/images/prints/fragmented-sky.jpg' }
     },
     {
       id: 'p019',
@@ -227,7 +227,7 @@ export const products: Product[] = [
       price: 35,
       isFeatured: false,
       keywords: ['typography', 'field', 'grid', 'letters', 'design'],
-      images: { primary: '/images/prints/typographic-field.jpg', gallery: [] }
+      images: { primary: '/images/prints/typographic-field.jpg', gallery: [], download: '/images/prints/typographic-field.jpg' }
     },
     {
       id: 'p020',
@@ -239,7 +239,7 @@ export const products: Product[] = [
       price: 58,
       isFeatured: false,
       keywords: ['suspended', 'objects', 'surreal', 'balance', 'space'],
-      images: { primary: '/images/prints/suspended-objects.jpg', gallery: [] }
+      images: { primary: '/images/prints/suspended-objects.jpg', gallery: [], download: '/images/prints/suspended-objects.jpg' }
     },
     {
       id: 'p021',
@@ -251,7 +251,7 @@ export const products: Product[] = [
       price: 31,
       isFeatured: false,
       keywords: ['open', 'plan', 'interior', 'minimal', 'light'],
-      images: { primary: '/images/prints/open-plan.jpg', gallery: [] }
+      images: { primary: '/images/prints/open-plan.jpg', gallery: [], download: '/images/prints/open-plan.jpg' }
     },
     {
       id: 'p022',
@@ -263,7 +263,7 @@ export const products: Product[] = [
       price: 50,
       isFeatured: true,
       keywords: ['color', 'system', 'blocks', 'modern', 'contrast'],
-      images: { primary: '/images/prints/color-system.jpg', gallery: [] }
+      images: { primary: '/images/prints/color-system.jpg', gallery: [], download: '/images/prints/color-system.jpg' }
     },
     {
       id: 'p023',
@@ -275,7 +275,7 @@ export const products: Product[] = [
       price: 45,
       isFeatured: false,
       keywords: ['edge', 'form', 'geometry', 'abstract', 'structure'],
-      images: { primary: '/images/prints/edge-of-form.jpg', gallery: [] }
+      images: { primary: '/images/prints/edge-of-form.jpg', gallery: [], download: '/images/prints/edge-of-form.jpg' }
     },
     {
       id: 'p024',
@@ -287,7 +287,7 @@ export const products: Product[] = [
       price: 34,
       isFeatured: false,
       keywords: ['structure', 'quiet', 'grid', 'minimal', 'balance'],
-      images: { primary: '/images/prints/quiet-structure.jpg', gallery: [] }
+      images: { primary: '/images/prints/quiet-structure.jpg', gallery: [], download: '/images/prints/quiet-structure.jpg' }
     },
     {
       id: 'p025',
@@ -299,7 +299,7 @@ export const products: Product[] = [
       price: 57,
       isFeatured: true,
       keywords: ['horizon', 'unreal', 'dreamlike', 'space', 'depth'],
-      images: { primary: '/images/prints/unreal-horizon.jpg', gallery: [] }
+      images: { primary: '/images/prints/unreal-horizon.jpg', gallery: [], download: '/images/prints/unreal-horizon.jpg' }
     }
   ]
   
