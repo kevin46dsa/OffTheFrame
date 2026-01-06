@@ -1,3 +1,4 @@
 export type { Product } from './productTypes'
 export type { ProductGridProps } from './productGridInterface'
 export type { OrderInfoProps } from './orderInfoInterface'
+export type { AnalyticsTrackingEvent, AnalyticsIdentity } from './analyticsTrackingTypes'
