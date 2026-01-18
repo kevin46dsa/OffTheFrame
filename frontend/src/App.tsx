@@ -2,8 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Shop, Product, Checkout, Analytics } from './pages'
 import { useAnalyticsIdentity } from './hooks'
 import { setAnalyticsIdentity } from './utils'
-import { CartSidebar, InvalidPage } from './components'
+import { CartSidebar, InvalidPage, Navbar } from './components'
 import { CartProvider } from './service/cart/cartContext'
+import { CartUiProvider } from './service/cart/cartUiContext'
 
 export default function App() {
   // Get the analytics identity from the useAnalyticsIdentity hook
@@ -20,8 +21,10 @@ export default function App() {
 
   return (
     <CartProvider>
-      <CartSidebar />
+      <CartUiProvider>
     <BrowserRouter>
+    <Navbar/>
+    <CartSidebar />
       <Routes>
         <Route path="/" element={<Shop />} />
         <Route path="/product/:id" element={<Product />} />
@@ -34,6 +37,7 @@ export default function App() {
         />
         </Routes>
       </BrowserRouter>
+      </CartUiProvider>
     </CartProvider>
   )
 }
