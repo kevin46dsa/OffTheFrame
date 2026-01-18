@@ -1,30 +1,40 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { Container, Grid, Box } from '@mui/material'
 import { products } from '../data/productData'
-import { ProductInfo, ProductMedia , ProductActions} from '../components/Product'
+import { ProductInfo, ProductMedia, ProductActions } from '../components/Product'
 import { ProductNotFound } from '../components/NotFound'
 
-
 export default function Product() {
-    const { id } = useParams()
-    // TODO: fetch product data from API
-    const product = products.find(product => product.id === id)
+  const { id } = useParams()
+  const product = products.find(p => p.id === id)
 
-    if (!product) {
-        return <ProductNotFound />
-    }
+  if (!product) {
+    return <ProductNotFound />
+  }
 
-    // TODO: Add a useEffect to triger a page view event
-    useEffect(() => {
-        console.log('Product page viewed', id, 'Triggered from Product Page')
-    }, [])
+  useEffect(() => {
+    console.log('Product page viewed', id)
+  }, [id])
 
-    return (
-        <div>
-            <h1>Product</h1>
-            <ProductMedia productData={product}/>
-            <ProductInfo  productData={product}/>
-            <ProductActions productData={product}/>
-        </div>
-    )
-}   
+  return (
+    <Container maxWidth="lg">
+      <Box sx={{ py: 6 }}>
+        <Grid container spacing={6}>
+          {/* Media */}
+          <Grid >
+            <ProductMedia productData={product} />
+          </Grid>
+
+          {/* Info + Actions */}
+          <Grid >
+            <ProductInfo productData={product} />
+            <Box sx={{ mt: 4 }}>
+              <ProductActions productData={product} />
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
+  )
+}

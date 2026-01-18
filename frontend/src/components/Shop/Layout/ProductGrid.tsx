@@ -1,18 +1,22 @@
+import { Grid } from '@mui/material'
 import type { ProductGridProps } from '../../../types'
 import { ProductCard } from './ProductCard'
 
-
-
 export function ProductGrid({ products }: ProductGridProps) {
   if (products.length === 0) {
-    return <p>No products found.</p>
+    return null
   }
 
   return (
-    <div>
+    <Grid container spacing={4}>
       {products.map(product => (
-        <ProductCard key={product.id} product={product} />
+        <Grid
+         container
+         columnSpacing={6}
+        >
+          <ProductCard product={product} />
+        </Grid>
       ))}
-    </div>
+    </Grid>
   )
 }

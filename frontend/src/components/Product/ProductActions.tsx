@@ -1,3 +1,4 @@
+import { Button, Stack, Typography } from '@mui/material'
 import type { ProductActionsProps } from '../../types/productPageInterfaces'
 import { trackEvent } from '../../utils'
 import { useCart } from '../../service/cart/useCart'
@@ -12,37 +13,40 @@ export function ProductActions({ productData }: ProductActionsProps) {
 
   const addToCart = useCallback(() => {
     addItem(productData)
-    trackEvent({
-      event: 'add_to_cart',
-    })
-  }, [addItem, productData, trackEvent])
+    trackEvent({ event: 'add_to_cart' })
+  }, [addItem, productData])
 
   const removeFromCart = useCallback(() => {
     removeItem(productData.id)
-    trackEvent({
-      event: 'remove_from_cart',
-    })
-  }, [removeItem, productData, trackEvent])
-
-  
+    trackEvent({ event: 'remove_from_cart' })
+  }, [removeItem, productData.id])
 
   const quantity = cartItem?.quantity ?? 0
 
   if (!cartItem) {
     return (
-      <div>
-        <button onClick={addToCart}>
-          Add to Cart
-        </button>
-      </div>
+      <Button
+        variant="contained"
+        size="large"
+        fullWidth
+        onClick={addToCart}
+      >
+        Add to Cart
+      </Button>
     )
   }
 
   return (
-    <div>
-      <button onClick={removeFromCart}>-</button>
-      <span>{quantity}</span>
-      <button onClick={addToCart}>+</button>
-    </div>
+    <Stack direction="row" spacing={2} alignItems="center">
+      <Button variant="outlined" onClick={removeFromCart}>
+        −
+      </Button>
+
+      <Typography>{quantity}</Typography>
+
+      <Button variant="outlined" onClick={addToCart}>
+        +
+      </Button>
+    </Stack>
   )
 }

@@ -1,0 +1,1 @@
+export {initDynamo} from './dynamodb'
