@@ -17,7 +17,7 @@ export class BackendStack extends cdk.Stack {
     const ordersLambda = createOrdersService(this)
 
     dynamo.bindDynamoPermission(productsLambda)
-dynamo.bindDynamoPermission(ordersLambda)
+    dynamo.bindDynamoPermission(ordersLambda)
 
 
     createApiGateway(this, {

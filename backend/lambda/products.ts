@@ -2,22 +2,24 @@ import { ok, notFound, serverError } from '../src/http/response'
 import { productService } from '../src/services'
 
 export async function handler(event: any) {
-  try {
-    const method = event.httpMethod
-    const productId = event.pathParameters?.id
+  const { httpMethod, resource, pathParameters } = event
 
-    // GET /products
-    if (method === 'GET' && !productId) {
-      const products = await productService.getAllProducts()
-      return ok(products)
+  try {
+    if (httpMethod === 'GET' && resource === '/products') {
+      return ok(await productService.getAllProducts())
     }
 
-    // GET /products/{id}
-    if (method === 'GET' && productId) {
+    if (httpMethod === 'GET' && resource === '/products/{id}') {
+      const productId = pathParameters?.id
+
+      if (!productId) {
+        return notFound('Product id missing')
+      }
+
       const product = await productService.getProductById(productId)
 
       if (!product) {
-        return notFound('Product not found')
+        return notFound(`Product ${productId} not found`)
       }
 
       return ok(product)
@@ -25,7 +27,12 @@ export async function handler(event: any) {
 
     return notFound('Route not found')
   } catch (error) {
-    console.error('[ProductsLambda]', error)
-    return serverError()
+    console.error('[ProductsLambda]', {
+      error,
+      httpMethod,
+      resource,
+    })
+
+    return serverError('Failed to fetch product data')
   }
 }

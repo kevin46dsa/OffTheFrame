@@ -8,6 +8,5 @@ const client = new DynamoDBClient({
 export const ddb = DynamoDBDocumentClient.from(client, {
   marshallOptions: {
     removeUndefinedValues: true,
-    convertEmptyValues: true,
   },
 })

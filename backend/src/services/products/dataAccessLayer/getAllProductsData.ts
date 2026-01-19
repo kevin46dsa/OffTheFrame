@@ -1,10 +1,26 @@
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
+import {
+  DynamoDBDocumentClient,
+  QueryCommand,
+} from '@aws-sdk/lib-dynamodb'
 import { Product } from '../models'
 
-// TODO: Replace with actual data from the database
-const products: Product[] = [
-  { id: 'p1', title: 'Abstract Lines', price: 40, category: 'abstract' },
-]
+
+const client = DynamoDBDocumentClient.from(new DynamoDBClient({}))
+const TABLE_NAME = process.env.PRODUCTS_TABLE!
 
 export async function getAllProductsData(): Promise<Product[]> {
-  return products
+  const res = await client.send(
+    new QueryCommand({
+      TableName: TABLE_NAME,
+      KeyConditionExpression: 'pk = :pk',
+      ExpressionAttributeValues: {
+        ':pk': 'PRODUCT',
+      },
+    })
+  )
+
+  return (res.Items ?? []) as Product[]
 }
+
+
