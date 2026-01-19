@@ -1,2 +1,4 @@
-export { getOrderByIdData } from './getOrderByIdData'
-export { createOrderData } from './createOrderData'
+export { getOrderByIdDynamoDb } from './getOrderByIdData'
+export { createOrderDynamoDb } from './createOrderData'
+export { getActiveOrderDynamoDb} from './getActiveOrderData'
+export { updateOrderDynamoDb} from './updateOrderData'

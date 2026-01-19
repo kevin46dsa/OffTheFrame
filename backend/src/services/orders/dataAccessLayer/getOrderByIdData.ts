@@ -1,17 +1,23 @@
+// src/dao/ordersDao.ts
+import { GetCommand } from '@aws-sdk/lib-dynamodb'
+import { ddb } from '../../../database/dynamo-client'
 import { Order } from '../models'
 
+const TABLE_NAME = process.env.ORDERS_TABLE!
 
-const order: Order = {
-  id: 'o1',
-  userId: 'u1',
-  items: [
-    { id: 'p1', quantity: 1 },
-  ],
-  total: 100,
-}
+export async function getOrderByIdDynamoDb(
+  anonUserId: string,
+  orderId: string,
+): Promise<Order | undefined> {
+  const res = await ddb.send(
+    new GetCommand({
+      TableName: TABLE_NAME,
+      Key: {
+        pk: anonUserId,
+        sk: orderId,
+      },
+    })
+  )
 
-
-export async function getOrderByIdData(id: string): Promise<Order> {
-  console.log('Getting order by id', id)
-  return order
+  return res.Item as Order | undefined
 }

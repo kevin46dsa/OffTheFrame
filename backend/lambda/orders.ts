@@ -1,72 +1,99 @@
 import {
-    ok,
-    created,
-    notFound,
-    badRequest,
-    serverError,
-  } from '../src/http/response'
-  import { orderService } from '../src/services'
-  
-  export async function handler(event: any) {
-    try {
-      const method = event.httpMethod
-      const resource = event.resource
-      const orderId = event.pathParameters?.id
-  
-      // placeholder until auth
-      const userId = 'anonymous-user'
-  
-      // POST /orders
-      if (method === 'POST' && resource === '/orders') {
-        if (!event.body) {
-            return badRequest('Request body required')
-          }
-    
-        const { items } = JSON.parse(event.body)
-        const order = await orderService.createOrder(items)
-        return created(order)
+  ok,
+  created,
+  notFound,
+  badRequest,
+  serverError,
+} from '../src/http/response'
+import { orderService } from '../src/services'
+
+export async function handler(event: any) {
+  const { httpMethod, resource, pathParameters, queryStringParameters, body } =
+    event
+
+  // Placeholder until auth is added
+  const userId = queryStringParameters?.userId 
+
+  try {
+    /**
+     * POST /orders
+     * Create order shell
+     */
+    if (httpMethod === 'POST' && resource === '/orders') {
+      if (!body) {
+        return badRequest('Request body required')
       }
-  
-      /*
-      // GET /orders
-      if (method === 'GET' && resource === '/orders') {
-        const orders = await orderService.getOrders(userId)
-        return ok(orders)
-      }
-  
-      // GET /orders/active
-      if (method === 'GET' && resource === '/orders/active') {
-        const order = await orderService.getActiveOrder(userId)
-        return order ? ok(order) : notFound('No active order')
-      }
-  
-      // PUT /orders/{id}
-      if (method === 'PUT' && resource === '/orders/{id}') {
-        if (!event.body) {
-          return badRequest('Request body required')
-        }
-  
-        const { items } = JSON.parse(event.body)
-        const order = await orderService.updateOrder(
-          userId,
-          orderId,
-          items
-        )
-  
-        return ok(order)
-      }
-  
-      // PUT /orders/{id}/complete
-      if (method === 'PUT' && resource === '/orders/{id}/complete') {
-        const order = await orderService.completeOrder(userId, orderId)
-        return ok(order)
-      }
-        */
-  
-      return notFound('Route not found')
-    } catch (error) {
-      console.error('[OrdersLambda]', error)
-      return serverError()
+
+      const { anonUserId, sessionId } = JSON.parse(body)
+
+      const order = await orderService.createOrder({
+        anonUserId,
+        sessionId,
+      })
+
+      return created(order)
     }
+
+    /**
+     * GET /orders/active?userId=
+     * Get active order for user
+     */
+    if (httpMethod === 'GET' && resource === '/orders/active') {
+      const order = await orderService.getActiveOrder(userId)
+      return order ? ok(order) : notFound('No active order')
+    }
+
+/**
+ * POST /orders/{id}/checkout
+ */
+if (httpMethod === 'POST' && resource === '/orders/{id}/checkout') {
+  const orderId = pathParameters?.id
+  if (!orderId || !body) {
+    return badRequest('Order id and body required')
   }
-  
+
+  const { items, currency } = JSON.parse(body)
+
+  const order = await orderService.checkoutOrder({
+    userId,
+    orderId,
+    items,
+    currency,
+  })
+
+  return ok(order)
+}
+
+ /**
+ * POST /orders/{id}/complete
+ */
+if (httpMethod === 'POST' && resource === '/orders/{id}/complete') {
+  const orderId = pathParameters?.id
+  if (!orderId || !body) {
+    return badRequest('Order id and body required')
+  }
+
+  const { items } = JSON.parse(body)
+
+  const order = await orderService.completeOrder({
+    userId,
+    orderId,
+    items,
+  })
+
+  return ok(order)
+}
+
+
+    return notFound('Route not found')
+  } catch (error) {
+    console.error('[OrdersLambda]', {
+      error,
+      httpMethod,
+      resource,
+      pathParameters,
+    })
+
+    return serverError('Failed to process order')
+  }
+}

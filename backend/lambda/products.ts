@@ -2,7 +2,7 @@ import { ok, notFound, serverError } from '../src/http/response'
 import { productService } from '../src/services'
 
 export async function handler(event: any) {
-  const { httpMethod, resource, pathParameters, path } = event
+  const { httpMethod, resource, pathParameters } = event
 
   try {
     if (httpMethod === 'GET'  && !pathParameters?.id) {

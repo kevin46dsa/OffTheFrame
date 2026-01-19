@@ -1,2 +1,5 @@
 export { getOrderById } from './getOrderById'
 export { createOrder} from './createOrder'
+export { getActiveOrder} from './getActiveOrder'
+export {checkoutOrder} from './checkoutOrder'
+export {completeOrder} from './completeOrder'

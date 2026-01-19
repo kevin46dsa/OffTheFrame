@@ -1,6 +1,6 @@
 import { Order } from '../models'
-import { getOrderByIdData } from '../dataAccessLayer'
+import { getOrderByIdDynamoDb } from '../dataAccessLayer'
 
-export async function getOrderById(id: string): Promise<Order> {
-  return await getOrderByIdData(id)
+export async function getOrderById(userId: string, orderId:string): Promise<Order|undefined> {
+  return await getOrderByIdDynamoDb(userId,orderId)
 }
