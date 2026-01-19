@@ -1,33 +1,66 @@
+import {
+  Paper,
+  Typography,
+  Stack,
+  Divider,
+  Button,
+  Box,
+} from '@mui/material'
 import { useCart } from '../../service/cart/useCart'
 
-export function OrderDetails( ) {
-  const { items, addItem, removeItem} = useCart()
+export function OrderDetails() {
+  const { items, addItem, removeItem } = useCart()
+
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0
+  )
 
   return (
-    <aside>
-      <h2>Order Details</h2>
+    <Paper sx={{ p: 4 }}>
+      <Typography variant="h6" gutterBottom>
+        Order Summary
+      </Typography>
 
-      <ul>
+      <Divider sx={{ mb: 2 }} />
+
+      <Stack spacing={2}>
         {items.map(item => (
-          <li key={item.product.id}>
-            <div>
-              <strong>{item.product.title}</strong>
-            </div>
+          <Box key={item.product.id}>
+            <Typography fontWeight={500}>
+              {item.product.title}
+            </Typography>
 
-            <div>
-              <button onClick={() => removeItem(item.product.id)}>
-                -
-              </button>
+            <Typography variant="body2" color="text.secondary">
+              ${item.product.price} × {item.quantity}
+            </Typography>
 
-              <span>{item.quantity}</span>
+            <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => removeItem(item.product.id)}
+              >
+                −
+              </Button>
 
-              <button onClick={() => addItem(item.product)}>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => addItem(item.product)}
+              >
                 +
-              </button>
-            </div>
-          </li>
+              </Button>
+            </Stack>
+          </Box>
         ))}
-      </ul>
-    </aside>
+      </Stack>
+
+      <Divider sx={{ my: 3 }} />
+
+      <Typography variant="h6">
+        Subtotal: ${subtotal.toFixed(2)}
+      </Typography>
+    </Paper>
   )
 }
