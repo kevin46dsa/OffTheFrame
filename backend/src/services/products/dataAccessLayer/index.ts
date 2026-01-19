@@ -1,2 +1,2 @@
-export { getAllProductsData } from './getAllProductsData'
-export { getProductByIdData } from './getProductByIdData'
+export { getAllProductsDynamoDb } from './getAllProductsData'
+export { getProductByIdDynamoDb } from './getProductByIdData'

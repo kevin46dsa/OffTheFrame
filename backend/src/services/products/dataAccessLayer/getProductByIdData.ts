@@ -8,9 +8,9 @@ import { Product } from '../models'
 const client = DynamoDBDocumentClient.from(new DynamoDBClient({}))
 const TABLE_NAME = process.env.PRODUCTS_TABLE!
 
-export async function getProductByIdDal(
+export async function getProductByIdDynamoDb(
   productId: string
-): Promise<Product | null> {
+): Promise<Product|undefined> {
   const res = await client.send(
     new GetCommand({
       TableName: TABLE_NAME,
@@ -21,5 +21,5 @@ export async function getProductByIdDal(
     })
   )
 
-  return res.Item ? (res.Item as Product) : null
+  return res.Item ? (res.Item as Product) : undefined
 }

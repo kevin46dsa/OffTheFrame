@@ -1,11 +1,25 @@
 import { ProductGrid } from './Layout/ProductGrid'
-import { products } from '../../data/productData'
+import { getAllProducts } from '../../data/url'
+import { useEffect, useState } from 'react'
 
 
 export function AllProducts() {
-   // TODO: Fetch products from API
-   const productsData = products
 
-    return <ProductGrid products={productsData} />
+    const [products, setProducts] = useState([])
+
+    useEffect(() => {
+      async function fetchProducts() {
+        try {
+          const response = await fetch(getAllProducts);
+          const data = await response.json();
+          setProducts(data);
+        } catch (error) {
+          console.error('Failed to fetch products:', error);
+        }
+      }
+      fetchProducts();
+    }, [])
+
+    return <ProductGrid products={products} />
 
 }

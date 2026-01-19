@@ -13,6 +13,11 @@ export function createApiGateway(
 ) {
   const api = new apigateway.RestApi(scope, 'OffTheFrameApi', {
     restApiName: 'OffTheFrame API',
+    defaultCorsPreflightOptions: {
+      allowOrigins: apigateway.Cors.ALL_ORIGINS,
+      allowMethods: ['GET', 'POST', 'OPTIONS'],
+      allowHeaders: ['Content-Type', 'Authorization'],
+    },
   })
 
   const products = api.root.addResource('products')

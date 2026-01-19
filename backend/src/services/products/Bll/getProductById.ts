@@ -1,6 +1,7 @@
 import { Product } from '../models'
-import { getProductByIdData } from '../dataAccessLayer'
+import { getProductByIdDynamoDb } from '../dataAccessLayer'
 
-export async function getProductById(id: string): Promise<Product> {
-  return getProductByIdData(id)
+export async function getProductById(id: string): Promise<Product | undefined> {
+  const response = getProductByIdDynamoDb(id)
+  return response
 }
