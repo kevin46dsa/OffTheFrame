@@ -46,7 +46,7 @@ export function ProductCard({ product }: ProductCardProps) {
           ${product.price}
         </Typography>
 
-        <Box sx={{ mt: 2 }}>
+        <Box sx={{ mt: 2 }} onClick={(e) => e.stopPropagation()}>
           <ProductActions productData={product} />
         </Box>
       </CardContent>

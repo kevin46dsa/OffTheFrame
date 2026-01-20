@@ -1,14 +1,15 @@
-import { Product } from "../../products/models"
+import type { Product } from "./productTypes"
 
 export type OrderStatus =
   | 'DRAFT'
   | 'CHECKOUT'
   | 'COMPLETED'
+  | 'CANCELLED'
 
-export type OrderItem = {
-  product: Product
-  quantity: number
-}
+  export type OrderItem = {
+    product: Product
+    quantity: number
+  }
 
 export type Order = {
   pk: string
@@ -16,7 +17,7 @@ export type Order = {
 
   orderId: string
   anonUserId: string
-  sessionId?: string
+  sessionId: string
 
   status: OrderStatus
 
@@ -26,11 +27,4 @@ export type Order = {
 
   createdAt: string
   updatedAt: string
-}
-
-
-
-export type OrderDbItem = Order & {
-  pk: string
-  sk: string
 }

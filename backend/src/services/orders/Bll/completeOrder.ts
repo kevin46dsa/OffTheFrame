@@ -6,11 +6,15 @@ import type { OrderItem, OrderStatus } from '../models'
 export async function completeOrder({
   userId,
   orderId,
-  items,
+  email,
+  firstName,
+  lastName
 }: {
   userId: string
   orderId: string
-  items: OrderItem[]
+  email?:string
+  firstName?:string
+  lastName?:string
 }) {
   const order = await getOrderById(userId, orderId)
   if (!order) return null
@@ -19,13 +23,13 @@ export async function completeOrder({
     throw new Error('Order not in CHECKOUT state')
   }
 
-  const subtotal = calculateSubtotal(items)
   const now = new Date().toISOString()
 
   const updatedOrder = {
     ...order,
-    items,
-    subtotal,
+    email,
+    firstName,
+    lastName,
     status: 'COMPLETED' as OrderStatus,
     updatedAt: now,
   }

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Grid, Box, CircularProgress } from '@mui/material'
-import { getProductById } from '../data/url'
+import { fetchProductById } from '../service/product/productApi'
 import type { Product } from '../types'
 import { ProductInfo, ProductMedia, ProductActions } from '../components/Product'
 import { ProductNotFound } from '../components/NotFound'
@@ -14,15 +14,13 @@ export default function ProductPage() {
   const fetchProduct = useCallback(async()=>{
     if(!id) return
     try {
-      const res = await fetch(getProductById(id))
-      if (!res.ok) {
-        setProduct(null)
-        return
-      }
-      const data: Product = await res.json()
-      setProduct(data)
+      setLoading(true)
+      const product = await fetchProductById(id)
+      if(!product) setProduct(null)
+
+      setProduct(product)
+      
     } catch (err) {
-      console.error('Failed to fetch product', err)
       setProduct(null)
     } finally {
       setLoading(false)

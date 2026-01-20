@@ -8,11 +8,38 @@ import {
     Box,
   } from '@mui/material'
   import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-  import { useCart } from '../../service/cart/useCart'
+  import { getCompletedOrder } from '../../service/order/orderApi'
+  import { useAnalyticsIdentity } from '../../hooks'
+import { useEffect, useState } from 'react'
+import type { OrderItem } from '../../types'
+import { useParams } from 'react-router-dom'
+  
   
   export function PurchaseComplete() {
-    const { items } = useCart()
+    const { orderId } = useParams<{ orderId: string }>()
+    const { anonUserId } = useAnalyticsIdentity()
   
+    const [items, setItems] = useState<OrderItem[] | null>(null)
+    const [loading, setLoading] = useState(true)
+  
+    useEffect(() => {
+      if (!orderId || !anonUserId) return
+  
+      async function loadOrder() {
+        if(!anonUserId || !orderId)return 
+        try {
+          const order = await getCompletedOrder(anonUserId, orderId)
+          setItems(order ?? [])
+        } finally {
+          setLoading(false)
+        }
+      }
+  
+      loadOrder()
+    }, [orderId, anonUserId])
+  
+    if (loading) return <div>Loading receipt…</div>
+    if (!items || items.length === 0) return <div>No Order Found</div>
     return (
       <Container maxWidth="sm">
         <Box sx={{ py: 8 }}>

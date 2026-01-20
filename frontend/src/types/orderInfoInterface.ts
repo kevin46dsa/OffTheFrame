@@ -1,11 +1,14 @@
+
+export type orderInfo = {
+    firstName: string,
+    lastName: string,
+    email: string,
+}
+
+
+
 export interface OrderInfoProps {
-    orderInfo: {
-        email: string
-        promoCode: string
-    }
-    setOrderInfo: (orderInfo: {
-        email: string
-        promoCode: string
-    }) => void
-    setIsOrderConfirmed: (isOrderConfirmed: boolean) => void
+    orderInfo: orderInfo
+    setOrderInfo: (orderInfo: orderInfo) => void
+    onSubmit: () => void
 }

@@ -43,6 +43,20 @@ export async function handler(event: any) {
       return order ? ok(order) : notFound('No active order')
     }
 
+    /**
+ * GET  /orders/{id}?userId=
+ */
+if (httpMethod === 'GET' && resource === '/orders/{id}') {
+  const orderId = pathParameters?.id
+  if (!orderId) {
+    return badRequest('Order id required')
+  }
+
+  const orderItems = await orderService.getCompleteOrder(userId,orderId)
+
+  return ok(orderItems)
+}
+
 /**
  * POST /orders/{id}/checkout
  */
@@ -52,13 +66,12 @@ if (httpMethod === 'POST' && resource === '/orders/{id}/checkout') {
     return badRequest('Order id and body required')
   }
 
-  const { items, currency } = JSON.parse(body)
+  const { items,anonUserId } = JSON.parse(body)
 
   const order = await orderService.checkoutOrder({
-    userId,
+    userId:anonUserId,
     orderId,
     items,
-    currency,
   })
 
   return ok(order)
@@ -73,12 +86,14 @@ if (httpMethod === 'POST' && resource === '/orders/{id}/complete') {
     return badRequest('Order id and body required')
   }
 
-  const { items } = JSON.parse(body)
+  const { anonUserId, email, firstName, lastName } = JSON.parse(body)
 
   const order = await orderService.completeOrder({
-    userId,
+    userId:anonUserId,
     orderId,
-    items,
+    email,
+    firstName,
+    lastName
   })
 
   return ok(order)

@@ -10,23 +10,24 @@ import {
 import CloseIcon from '@mui/icons-material/Close'
 import { useCart } from '../../service/cart/useCart'
 import { useCartUi } from '../../service/cart/cartUiContext'
-import { useEffect } from 'react'
+import { useOrder } from '../../service/order/useOrder'
+import { useEffect,  } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export function CartSidebar() {
   const { items, addItem, removeItem, clearCart } = useCart()
   const { isOpen, closeCart, openCart } = useCartUi()
+  const { checkout } = useOrder()
   const navigate = useNavigate()
 
   // Auto-open cart when first item is added
   useEffect(() => {
-    if (items.length > 0) {
-      openCart
-    }
+    if (items.length > 0) openCart()
   }, [items.length])
 
-  const handleCheckout = () => {
-    closeCart
+  const handleCheckout = async () => {
+    await checkout(items)
+    closeCart()
     navigate('/checkout')
   }
 

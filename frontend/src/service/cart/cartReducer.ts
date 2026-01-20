@@ -54,8 +54,6 @@ export function removeItemFromCart(
     }
     return nextState
   }
-
-
   const nextState = {
     ...state,
     items: state.items.map(item =>
@@ -72,6 +70,16 @@ export function clearCart(): CartState {
   return { ...initialCartState }
 }
 
+export function hydrateCart(
+    state: CartState,
+    action: Extract<CartAction, { type: 'HYDRATE_CART' }>
+  ): CartState {
+    return {
+      ...state,
+      items: action.payload,
+    }
+  }
+
 export function cartReducer(
   state: CartState,
   action: CartAction
@@ -82,8 +90,11 @@ export function cartReducer(
         return addItemToCart(state, action)
       case 'REMOVE_ITEM':
         return removeItemFromCart(state, action)
+      case 'HYDRATE_CART':
+        return hydrateCart(state, action)
       case 'CLEAR_CART':
         return clearCart()
+
       default:
         console.warn('[CART] Unknown action type')
         return state

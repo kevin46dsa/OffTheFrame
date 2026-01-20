@@ -1,8 +1,11 @@
-import { OrderItem } from "../../models"
+import type { OrderItem } from '../../models'
 
-export function calculateSubtotal(items: OrderItem[]) {
-    return items.reduce(
-      (sum, item) => sum + item.unitPrice * item.quantity,
-      0
-    )
+export function calculateSubtotal(items: OrderItem[]): number {
+  let total = 0
+
+  for (const item of items) {
+    total += item.product.price * item.quantity
   }
+
+  return total
+}

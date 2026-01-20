@@ -3,18 +3,22 @@ import {
   Typography,
   Stack,
   Divider,
-  Button,
   Box,
 } from '@mui/material'
-import { useCart } from '../../service/cart/useCart'
+import { useOrder } from '../../service/order/useOrder'
+import { useMemo } from 'react'
 
 export function OrderDetails() {
-  const { items, addItem, removeItem } = useCart()
+  const { order } = useOrder()
 
-  const subtotal = items.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  )
+  const items = order?.items ?? []
+
+  const subtotal = useMemo(() => {
+    return items.reduce(
+      (sum, item) => sum + item.product.price * item.quantity,
+      0
+    )
+  }, [items])
 
   return (
     <Paper sx={{ p: 4 }}>
@@ -34,24 +38,6 @@ export function OrderDetails() {
             <Typography variant="body2" color="text.secondary">
               ${item.product.price} × {item.quantity}
             </Typography>
-
-            <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-              <Button
-                size="small"
-                variant="outlined"
-                onClick={() => removeItem(item.product.id)}
-              >
-                −
-              </Button>
-
-              <Button
-                size="small"
-                variant="outlined"
-                onClick={() => addItem(item.product)}
-              >
-                +
-              </Button>
-            </Stack>
           </Box>
         ))}
       </Stack>

@@ -1,16 +1,29 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Container, Grid, Box, Typography } from '@mui/material'
-import { OrderInfo, OrderDetails, PurchaseComplete } from '../components'
+import { OrderInfo, OrderDetails } from '../components'
+import { useOrder } from '../service/order/useOrder'
 
 export default function Checkout() {
-  const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
+  const { order, complete, isLoading} = useOrder()
+  const navigate = useNavigate()
+
   const [orderInfo, setOrderInfo] = useState({
+    firstName: '',
+    lastName: '',
     email: '',
-    promoCode: '',
   })
 
-  if (isOrderConfirmed) {
-    return <PurchaseComplete />
+  if (isLoading) {
+    return <div>Loading order…</div>
+  }
+
+  async function handlePlaceOrder() {
+    if(!order)return null 
+    const completedId = await complete({
+      ...orderInfo,
+    })
+    navigate(`/order/complete/${completedId}`)
   }
 
   return (
@@ -26,7 +39,7 @@ export default function Checkout() {
             <OrderInfo
               orderInfo={orderInfo}
               setOrderInfo={setOrderInfo}
-              setIsOrderConfirmed={setIsOrderConfirmed}
+              onSubmit={handlePlaceOrder}
             />
           </Grid>
 

@@ -7,12 +7,10 @@ export async function checkoutOrder({
   userId,
   orderId,
   items,
-  currency,
 }: {
   userId: string
   orderId: string
   items: OrderItem[]
-  currency: string
 }) {
   const order = await getOrderById(userId, orderId)
   if (!order) return null
@@ -28,7 +26,6 @@ export async function checkoutOrder({
     ...order,
     items,
     subtotal,
-    currency,
     status: "CHECKOUT" as OrderStatus,
     updatedAt: now,
   }

@@ -38,6 +38,17 @@ export function createApiGateway(
   orders.addMethod('POST', new apigateway.LambdaIntegration(ordersLambda))
 
   const ordersId = orders.addResource('{id}')
+  // GET /orders/{id}
+  ordersId.addMethod(
+    'GET',
+    new apigateway.LambdaIntegration(ordersLambda),
+    {
+      requestParameters: {
+        'method.request.querystring.userId': true, // REQUIRED
+        // set to false if optional
+      },
+    }
+  )
   // POST /orders/{id}/complete
   ordersId.addResource('complete').addMethod('POST', new apigateway.LambdaIntegration(ordersLambda))
   // POST /orders/{id}/checkout
