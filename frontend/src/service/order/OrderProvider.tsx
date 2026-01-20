@@ -85,7 +85,9 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
   
     const completedId = order.orderId
   
-    await startNewOrder()
+    // 🔥 immediately reset ACTIVE order state
+    startNewOrder()
+    
   
     return completedId
   }
@@ -102,6 +104,7 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
   
     setOrder(created)
     setCartHydrated(false)
+    dispatch({ type: 'CLEAR_CART' })
   }
   
 
