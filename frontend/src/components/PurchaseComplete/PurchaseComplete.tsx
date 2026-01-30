@@ -11,7 +11,7 @@ import {
   import { getCompletedOrder } from '../../service/order/orderApi'
   import { useAnalyticsIdentity } from '../../hooks'
 import { useEffect, useState } from 'react'
-import type { OrderItem } from '../../types'
+import type { purchaseCompleteResponse } from '../../types'
 import { useParams } from 'react-router-dom'
   
   
@@ -19,7 +19,7 @@ import { useParams } from 'react-router-dom'
     const { orderId } = useParams<{ orderId: string }>()
     const { anonUserId } = useAnalyticsIdentity()
   
-    const [items, setItems] = useState<OrderItem[] | null>(null)
+    const [items, setItems] = useState<purchaseCompleteResponse[] | null>(null)
     const [loading, setLoading] = useState(true)
   
     useEffect(() => {
@@ -68,13 +68,13 @@ import { useParams } from 'react-router-dom'
               <Stack spacing={1} sx={{ width: '100%' }}>
                 {items.map(item => (
                   <Button
-                    key={item.product.id}
-                    href={item.product.images.download}
+                    key={item.productId}
+                    href={item.downloadUrl}
                     download
                     variant="outlined"
                     fullWidth
                   >
-                    Download {item.product.title}
+                    Download {item.title}
                   </Button>
                 ))}
               </Stack>

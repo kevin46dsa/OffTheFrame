@@ -11,6 +11,13 @@ export type OrderStatus =
     quantity: number
   }
 
+  export type purchaseCompleteResponse = {
+    downloadUrl:string,
+productId:string,
+quantity:number,
+title:string
+  }
+
 export type Order = {
   pk: string
   sk: string

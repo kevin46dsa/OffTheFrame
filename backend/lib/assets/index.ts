@@ -1,0 +1,1 @@
+export {initProductsAssets} from './productImages'

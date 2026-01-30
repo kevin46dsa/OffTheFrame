@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import type { Product } from '../../../types'
 import { ProductActions } from '../../Product/ProductActions'
 
+const bucket = import.meta.env.VITE_PRODUCTS_BUCKET
+const region = import.meta.env.VITE_AWS_REGION
+
 type ProductCardProps = {
   product: Product
 }
@@ -25,7 +28,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <CardMedia
         component="img"
         height="320"
-        image={product.images.primary ?? 'https://via.placeholder.com/600x800'}
+        image={product.images.primary ? `https://${bucket}.s3.${region}.amazonaws.com/${product.images.primary}` : 'https://via.placeholder.com/600x800'}
         alt={product.title}
       />
 
