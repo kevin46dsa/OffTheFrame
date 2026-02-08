@@ -14,6 +14,14 @@ import { useOrder } from '../../service/order/useOrder'
 import { useEffect,  } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+const bucket = import.meta.env.VITE_PRODUCTS_BUCKET
+const region = import.meta.env.VITE_AWS_REGION
+
+const getImageUrl = (key?: string) =>
+  key
+    ? `https://${bucket}.s3.${region}.amazonaws.com/${key}`
+    : 'https://via.placeholder.com/200x200'
+
 export function CartSidebar() {
   const { items, addItem, removeItem, clearCart } = useCart()
   const { isOpen, closeCart, openCart } = useCartUi()
@@ -75,40 +83,66 @@ export function CartSidebar() {
         {/* Items */}
         <Stack spacing={2} sx={{ mt: 3, flexGrow: 1 }}>
           {items.map(item => (
-            <Box key={item.product.id}>
-              <Typography fontWeight={500}>
-                {item.product.title}
-              </Typography>
+  <Box key={item.product.id} sx={{ py: 1 }}>
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: '64px 1fr',
+        gap: 2,
+        alignItems: 'center',
+      }}
+    >
+      {/* Column 1: image */}
+      <Box
+        component="img"
+        src={getImageUrl(item.product.images?.primary)}
+        alt={item.product.title}
+        loading="lazy"
+        sx={{
+          width: 72,
+          height: 72,
+          borderRadius: 2,
+          objectFit: 'cover',
+        }}
+      />
 
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ mb: 1 }}
-              >
-                ${item.product.price}
-              </Typography>
+      {/* Column 2: text + controls */}
+      <Box sx={{ minWidth: 0 }}>
+        <Typography fontWeight={600} noWrap>
+          {item.product.title}
+        </Typography>
 
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Button
-                  size="small"
-                  variant="outlined"
-                  onClick={() => removeItem(item.product.id)}
-                >
-                  −
-                </Button>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          ${item.product.price}
+        </Typography>
 
-                <Typography>{item.quantity}</Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => removeItem(item.product.id)}
+            sx={{ minWidth: 40, px: 1.25 }}
+          >
+            −
+          </Button>
 
-                <Button
-                  size="small"
-                  variant="outlined"
-                  onClick={() => addItem(item.product)}
-                >
-                  +
-                </Button>
-              </Stack>
-            </Box>
-          ))}
+          <Typography sx={{ width: 18, textAlign: 'center' }}>
+            {item.quantity}
+          </Typography>
+
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => addItem(item.product)}
+            sx={{ minWidth: 40, px: 1.25 }}
+          >
+            +
+          </Button>
+        </Stack>
+      </Box>
+    </Box>
+  </Box>
+))}
         </Stack>
 
         {/* Footer */}
