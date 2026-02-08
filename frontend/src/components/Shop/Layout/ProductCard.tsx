@@ -10,42 +10,58 @@ type ProductCardProps = {
   product: Product
 }
 
+const getImageUrl = (key?: string) =>
+  key ? `https://${bucket}.s3.${region}.amazonaws.com/${key}` : 'https://via.placeholder.com/600x800'
+
 export function ProductCard({ product }: ProductCardProps) {
   const navigate = useNavigate()
 
   return (
     <Card
+      onClick={() => navigate(`/product/${product.id}`)}
       sx={{
         cursor: 'pointer',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-        '&:hover': {
-          transform: 'translateY(-4px)',
-          boxShadow: 4,
+        borderRadius: 3,
+        overflow: 'hidden',
+        boxShadow: 2,
+        transition: 'box-shadow 220ms ease, transform 220ms ease',
+
+        '@media (hover: hover)': {
+          '&:hover': {
+            boxShadow: 8,
+            transform: 'translateY(-4px)',
+          },
+          '&:hover .product-img': {
+            transform: 'scale(1.03)',
+          },
         },
       }}
-      onClick={() => navigate(`/product/${product.id}`)}
     >
-      <CardMedia
-        component="img"
-        height="320"
-        image={product.images.primary ? `https://${bucket}.s3.${region}.amazonaws.com/${product.images.primary}` : 'https://via.placeholder.com/600x800'}
-        alt={product.title}
-      />
+      <Box sx={{ overflow: 'hidden' }}>
+        <CardMedia
+          component="img"
+          height="320"
+          image={getImageUrl(product.images.primary)}
+          alt={product.title}
+          className="product-img"
+          sx={{
+            transition: 'transform 220ms ease',
+            transform: 'scale(1)',
+            objectFit: 'cover',
+          }}
+        />
+      </Box>
 
-      <CardContent>
-        <Typography variant="h6">
+      <CardContent sx={{ p: 2.5 }}>
+        <Typography variant="h6" sx={{ lineHeight: 1.2 }}>
           {product.title}
         </Typography>
 
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{ mb: 1 }}
-        >
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
           {product.artist}
         </Typography>
 
-        <Typography variant="body1">
+        <Typography variant="body1" sx={{ mt: 1 }}>
           ${product.price}
         </Typography>
 

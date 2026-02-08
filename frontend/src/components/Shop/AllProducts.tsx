@@ -1,33 +1,36 @@
+import { useEffect, useState } from 'react'
+import { Box, CircularProgress } from '@mui/material'
 import { ProductGrid } from './Layout/ProductGrid'
 import { fetchAllProducts } from '../../service/product/productApi'
-import { useEffect, useState } from 'react'
-
+import type { Product } from '../../types'
 
 export function AllProducts() {
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(false)
 
-    const [products, setProducts] = useState([])
-    const [loading,setLoading] = useState(false)
-
-    useEffect(() => {
-        async function loadProducts() {
-          try {
-            setLoading(true)
-            const allProducts = await fetchAllProducts()
-            setProducts(allProducts)
-          } catch {
-            setProducts([])
-          } finally {
-            setLoading(false)
-          }
-        }
-      
-        loadProducts()
-      }, [])
-
-    if(loading){
-        return <h1>Loading...</h1>
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        setLoading(true)
+        const allProducts = await fetchAllProducts()
+        setProducts(allProducts ?? [])
+      } catch {
+        setProducts([])
+      } finally {
+        setLoading(false)
+      }
     }
 
-    return <ProductGrid products={products} />
+    loadProducts()
+  }, [])
 
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+        <CircularProgress />
+      </Box>
+    )
+  }
+
+  return <ProductGrid products={products} />
 }

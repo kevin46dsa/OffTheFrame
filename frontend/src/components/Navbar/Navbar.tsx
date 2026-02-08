@@ -38,7 +38,7 @@ import {
             onClick={() => navigate('/')}
           >
             <Typography variant="h6">
-              Off The Frame
+              #OffTheFrame
             </Typography>
           </Box>
   
