@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Frontend",
+      "type": "shell",
+      "command": "npm run build",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy Backend",
+      "type": "shell",
+      "command": "cdk deploy BackendStack",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+         "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    }
+  ]
+}

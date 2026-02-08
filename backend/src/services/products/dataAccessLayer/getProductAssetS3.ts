@@ -11,6 +11,6 @@ export async function getProductAssetUrlS3(assetKey: string) {
   })
 
   return getSignedUrl(s3, command, {
-    expiresIn: 300, // seconds
+    expiresIn: 120, // 2 minutes seconds
   })
 }

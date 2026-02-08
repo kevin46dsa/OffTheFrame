@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import { useCart } from '../../service/cart/useCart'
 import { useCartUi } from '../../service/cart/cartUiContext'
 import { useOrder } from '../../service/order/useOrder'
-import { useEffect,  } from 'react'
+import { useEffect, useRef,  } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const bucket = import.meta.env.VITE_PRODUCTS_BUCKET
@@ -29,9 +29,18 @@ export function CartSidebar() {
   const navigate = useNavigate()
 
   // Auto-open cart when first item is added
-  useEffect(() => {
-    if (items.length > 0) openCart()
-  }, [items.length])
+const prevLenRef = useRef<number>(items.length)
+
+useEffect(() => {
+  const prevLen = prevLenRef.current
+
+  // Only open when cart was empty and now has items
+  if (prevLen === 0 && items.length > 0) {
+    openCart()
+  }
+
+  prevLenRef.current = items.length
+}, [items.length, openCart])
 
   const handleCheckout = async () => {
     await checkout(items)

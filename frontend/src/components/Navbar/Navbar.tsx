@@ -41,16 +41,18 @@ import {
               #OffTheFrame
             </Typography>
           </Box>
-  
+
           {/* Cart */}
-          <IconButton onClick={openCart}>
-            <Badge
-              badgeContent={itemCount}
-              color="primary"
+          {(window.location.pathname !== '/checkout' && !window.location.pathname.includes('/order/complete')) && (
+            <IconButton onClick={openCart}>
+              <Badge
+                badgeContent={itemCount}
+                color="primary"
             >
               <ShoppingBagIcon />
             </Badge>
           </IconButton>
+          )}
         </Toolbar>
       </AppBar>
     )

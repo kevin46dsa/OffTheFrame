@@ -1,3 +1,5 @@
+import type { purchaseCompleteResponse } from '../../types'
+
 const API = import.meta.env.VITE_API_URL
 
 export async function getActiveOrder(userId: string) {
@@ -61,11 +63,13 @@ export async function completeOrder(body: {
   return res.json()
 }
 
-export async function getCompletedOrder(userId:string,orderId:string) {
-  const res = await fetch(
-    `${API}/orders/${orderId}?userId=${userId}`,
-  )
-  if (res.status === 404) return null
+export async function getCompletedOrder(
+  userId: string,
+  orderId: string
+): Promise< purchaseCompleteResponse| null> {
+  const res = await fetch(   `${API}/orders/${orderId}?userId=${userId}`)
+
+  if (!res.ok) return null
   return res.json()
 }
 
