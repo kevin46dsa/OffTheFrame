@@ -7,7 +7,6 @@ import {
   Button,
 } from '@mui/material'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
-import ShoppingBagRoundedIcon from '@mui/icons-material/ShoppingBagRounded'
 import { useNavigate } from 'react-router-dom'
 
 export function PurchaseCompleteNotFound() {
