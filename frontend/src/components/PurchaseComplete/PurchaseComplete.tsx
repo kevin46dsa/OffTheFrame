@@ -1,6 +1,3 @@
-// PurchaseComplete.tsx (drop-in)
-// npm i file-saver
-
 import {
   Container,
   Paper,
@@ -17,7 +14,8 @@ import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-
+import { PurchaseCompleteLoading} from './PurchaseCompleteLoading'
+ import { PurchaseCompleteNotFound } from './PurchaseCompleteNotFound'
 import { getCompletedOrder } from '../../service/order/orderApi'
 import { useAnalyticsIdentity } from '../../hooks'
 import type { purchaseCompleteResponse } from '../../types'
@@ -64,8 +62,8 @@ export function PurchaseComplete() {
     return 'Your downloads are ready.'
   }, [count])
 
-  if (loading) return <div>Loading receipt…</div>
-  if (!items || items.length === 0) return <div>No Order Found</div>
+if (loading) return <PurchaseCompleteLoading />
+if (!items || items.length === 0) return <PurchaseCompleteNotFound />
 
   return (
     <Container maxWidth="sm">
